@@ -8,29 +8,64 @@
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class pro {
     public static void main(String[] args) {
-        Collection<String> parentheses = List.of("(", ")", "{}", "[", "]");
 
-        String collect = parentheses.stream().collect(Collectors.joining("<>"));
-        System.out.println(collect);
-
-        System.out.println(isCorrectParentheses (collect));
+        String brackets = "()}";
+        System.out.println(isCorrectBrackets(brackets));
     }      
-    private static boolean isCorrectParentheses(String collect){
-        Map<Character, Character> db = new HashMap<>();
-        for (int i = 0; i < collect.length(); i++){
-            Character temp = collect.charAt(i);
-        }
-        return false;
+    private static boolean isCorrectBrackets(String brackets){
 
-        // парсим текст на слова
-        // печатаем слова в порядке возрастания длины
-        
-        // throw new UnsupportedOperationException();
+        ArrayList<Character> openedBrackets = new ArrayList<Character>();
+        for (int i = 0; i < brackets.length(); i++) {
+            if (brackets.charAt(i) == '(') {
+                openedBrackets.add(brackets.charAt(i));
+            }
+            else if (brackets.charAt(i) == '{') {
+                    openedBrackets.add(brackets.charAt(i));
+            }
+            else if (brackets.charAt(i) == '[') {
+                openedBrackets.add(brackets.charAt(i));
+            }
+            else if (brackets.charAt(i) == '<') {
+                openedBrackets.add(brackets.charAt(i));
+            }
+        }
+
+        ArrayList<Character> closedBrackets = new ArrayList<Character>();
+        for (int i = 0; i < brackets.length(); i++) {
+            if (brackets.charAt(i) == ')') {
+                closedBrackets.add(brackets.charAt(i));
+            }
+            else if (brackets.charAt(i) == '}') {
+                closedBrackets.add(brackets.charAt(i));
+            }
+            else if (brackets.charAt(i) == ']') {
+                closedBrackets.add(brackets.charAt(i));
+            }
+            else if (brackets.charAt(i) == '>') {
+                closedBrackets.add(brackets.charAt(i));
+            }
+        }
+
+        System.out.println(openedBrackets);
+        System.out.println(closedBrackets);
+
+        // код ниже не доработан, просто набросок
+        Map<Character, Character> matchingBrackets = new HashMap<>();
+        if (openedBrackets.size() == closedBrackets.size()) {
+            while (openedBrackets.contains('(') && closedBrackets.contains(')')) {
+                matchingBrackets.put('(', ')');
+                int x = openedBrackets.indexOf('(');
+                int y = closedBrackets.indexOf(')');
+                openedBrackets.remove(x);
+                closedBrackets.remove(y);
+            }
+            System.out.println(matchingBrackets);
+        }
+
+        return false;
     }
 }
